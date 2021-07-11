@@ -6,7 +6,9 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothServerSocket
 import android.bluetooth.BluetoothSocket
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -18,6 +20,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.clovertech.autolibdz.R
+import com.clovertech.autolibdz.utils.Constants
 import com.skyfishjy.library.RippleBackground
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -42,7 +45,7 @@ class FindYourCarActivity : AppCompatActivity() {
                 data.printStackTrace()
                 Toast.makeText(this, data.message, Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
-                val data: JSONObject = it[0] as JSONObject
+
 
             }
 
@@ -74,11 +77,11 @@ class FindYourCarActivity : AppCompatActivity() {
             bluetoothAdapter = null
             mSocket.emit("stop association")
             val associationStatus = findViewById<TextView>(R.id.association_status_id)
-            associationStatus.text = "Non associÃ©"
+            associationStatus.text = "Non associer"
             rippleBackground?.startRippleAnimation()
-            this.runOnUiThread {
-                Toast.makeText(this, "Non associÃ©", Toast.LENGTH_SHORT).show()
-            }
+//            this.runOnUiThread {
+//                Toast.makeText(this, "Non associer", Toast.LENGTH_SHORT).show()
+//            }
         }
 
         try {
@@ -111,7 +114,11 @@ class FindYourCarActivity : AppCompatActivity() {
             val jsonInfos = JSONObject()
             jsonInfos.put("idVehicule", 5)
             val jsonInfosObj = JSONObject()
-            jsonInfosObj.put("id", 5)
+
+            val preferences: SharedPreferences = getSharedPreferences(Constants.APP_PREFS, Context.MODE_PRIVATE)
+            val idLocataire = preferences.getInt("idUser", 5)
+
+            jsonInfosObj.put("id", idLocataire)
             val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
             val name: String = mBluetoothAdapter.name
             jsonInfosObj.put("nom", name)
