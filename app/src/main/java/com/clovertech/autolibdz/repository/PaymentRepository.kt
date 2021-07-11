@@ -11,12 +11,12 @@ import com.clovertech.autolibdz.model.paySubResponse
 import com.clovertech.autolibdz.utils.RetrofitInstance
 import retrofit2.Response
 
-object PaymentRepository {
+class PaymentRepository {
     suspend fun pushCard(paymentMethod: PaymentMethod) : Response<paymentResponse> {
         return RetrofitInstance.cardApi.pushCard(paymentMethod)
     }
-    suspend fun pay(pay: Pay) : Response<PayResponse> {
-        return RetrofitInstance.cardApi.pay(pay)
+    suspend fun pay(token:String,pay: Pay) : Response<PayResponse> {
+        return RetrofitInstance.cardApi.pay(token,pay)
     }
     suspend fun addSub(subscriptionRequest: SubscriptionRequest) : Response<SubscriptionResponse> {
         return RetrofitInstance.subApi.addSub(subscriptionRequest)

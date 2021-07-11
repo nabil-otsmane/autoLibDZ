@@ -21,6 +21,7 @@ import com.clovertech.autolibdz.R
 import com.clovertech.autolibdz.ViewModel.MainViewModelFactoryCard
 import com.clovertech.autolibdz.ViewModel.RentalViewModel
 import com.clovertech.autolibdz.ViewModel.RentalViewModelFactory
+import com.clovertech.autolibdz.activities.FindYourCarActivity
 import com.clovertech.autolibdz.repository.PaymentRepository
 import com.clovertech.autolibdz.repository.RentalRepository
 import com.clovertech.autolibdz.ui.promo.idCodePromo
@@ -74,7 +75,7 @@ class ConfirmPayFragment : BottomSheetDialogFragment() {
             this.dismiss()
         }
         last4.setText("xxx xxxx "+arguments?.getString("last4").toString())
-        val repository = PaymentRepository
+        val repository = PaymentRepository()
         val viewModelFactory = MainViewModelFactoryCard(repository)
         viewModel = ViewModelProvider(this,viewModelFactory)
                 .get(ViewModelCard::class.java)
@@ -83,15 +84,19 @@ class ConfirmPayFragment : BottomSheetDialogFragment() {
             val amount= arguments?.getString("amount").toString()
             val idRental= arguments?.getString("idRental").toString()
             val type=arguments?.getString("type").toString()
-
+            val prefs =requireActivity(). getSharedPreferences(Constants.APP_PREFS, AppCompatActivity.MODE_PRIVATE)
+            val token=prefs.getString("TOKEN","")
+            Log.d("token",token.toString())
             Toast.makeText(context,amount,Toast.LENGTH_LONG).show()
             val pay = Pay(paymentId,amount,idRental,type,idCodePromo)
 
-            viewModel.pay(pay)
+            if (token != null) {
+                viewModel.pay(token,pay)
+            }
             viewModel.PayResponse.observe(viewLifecycleOwner, Observer { response ->
                 if (response.isSuccessful) {
 
-                    validateRental()
+                   // validateRental()
                     Log.e("Push", (response.body().toString()))
                     Log.e("Push", response.code().toString())
                     Log.e("Push", response.message())
@@ -123,10 +128,10 @@ class ConfirmPayFragment : BottomSheetDialogFragment() {
                     Log.d("clicked",clicked.toString())
                     if(clicked=="true"){
                         startActivity(Intent(requireActivity(),
-                            EndLocationActivity::class.java))
+                            FindYourCarActivity::class.java))
                     }
                     startActivity(Intent(requireActivity(),
-                        EndLocationActivity::class.java))
+                        FindYourCarActivity::class.java))
                  /*   val builder = AlertDialog.Builder(activity!!)
                     //set title for alert dialog
                     builder.setTitle(R.string.SucdialogTitle)

@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:text="@string/id_facture"
             android:textSize="15sp"
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="110dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -83,9 +83,9 @@
 
         <TextView
             android:id="@+id/penality"
-            android:layout_width="119dp"
-            android:layout_height="31dp"
-            android:layout_marginLeft="190dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="160dp"
             android:layout_marginTop="10dp"
             android:textColor="@color/orange"
             android:textSize="15sp"

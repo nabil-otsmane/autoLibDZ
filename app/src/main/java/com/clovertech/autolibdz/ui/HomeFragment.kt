@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.clovertech.autolibdz.Adapters.BorneAdapter
+import com.clovertech.autolibdz.Adapters.ImageVehiculeAdapter
 import com.clovertech.autolibdz.R
 import com.clovertech.autolibdz.activities.CarsActivity
 import com.google.android.gms.location.*
@@ -47,6 +48,7 @@ import kotlinx.android.synthetic.main.custom_search_dialog_yello.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import com.clovertech.autolibdz.model.Borne
+import com.clovertech.autolibdz.model.Vehicle
 import com.clovertech.autolibdz.utils.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
@@ -198,8 +200,7 @@ class HomeFragment : Fragment() , OnMapReadyCallback , GoogleMap.OnMarkerClickLi
             }
             R.id.checked_park -> {
               //  startActivity(Intent(context, CarsActivity::class.java))
-                findNavController().navigate(R.id.nav_to_list_cars)
-               /* val borne = adapter.selectedBorne.value
+                val borne = adapter.selectedBorne.value
 
                 if (borne != null) {
                     park_name.text = borne.city
@@ -240,7 +241,7 @@ class HomeFragment : Fragment() , OnMapReadyCallback , GoogleMap.OnMarkerClickLi
                 } else {
                     Log.e("no borne", "no selected borne found")
                 }
-*/
+
 
             }
             R.id.search_position -> {
@@ -283,7 +284,9 @@ class HomeFragment : Fragment() , OnMapReadyCallback , GoogleMap.OnMarkerClickLi
             }
             R.id.see_cars_btn -> {
 //                startActivity(Intent(context,FindYourCarActivity::class.java))
-                startActivity(Intent(context, CarsActivity::class.java))
+//                startActivity(Intent(context, CarsActivity::class.java))
+
+                findNavController().navigate(R.id.nav_to_list_cars)
             }
         }
     }
